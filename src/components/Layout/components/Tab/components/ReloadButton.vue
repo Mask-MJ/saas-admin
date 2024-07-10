@@ -1,13 +1,13 @@
 <script setup lang="ts" name="ReloadButton">
-const app = useAppStore()
-const [value] = useToggle()
+const app = useAppStore();
+const [value] = useToggle();
 
 function handleRefresh() {
-  value.value = true
-  app.reloadPage()
+  value.value = true;
+  app.reloadPage();
   setTimeout(() => {
-    value.value = false
-  }, 1000)
+    value.value = false;
+  }, 1000);
 }
 </script>
 

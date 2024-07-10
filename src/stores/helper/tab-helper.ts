@@ -1,26 +1,26 @@
 import type {
   RouteLocationNormalizedLoaded,
   RouteRecordNormalized,
-  RouteRecordName
-} from 'vue-router/auto'
-import type { RemovableRef } from '@vueuse/core'
-import type { GlobalTabRoute } from '../tab'
+  RouteRecordName,
+} from 'vue-router/auto';
+import type { RemovableRef } from '@vueuse/core';
+import type { GlobalTabRoute } from '../tab';
 
 /**
  * 根据vue路由获取tab路由
  * @param route
  */
 export function getTabRouteByVueRoute(
-  route: RouteRecordNormalized | RouteLocationNormalizedLoaded
+  route: RouteRecordNormalized | RouteLocationNormalizedLoaded,
 ) {
-  const fullPath = hasFullPath(route) ? route.fullPath : route.path
+  const fullPath = hasFullPath(route) ? route.fullPath : route.path;
 
   const tabRoute: GlobalTabRoute = {
     name: route.name as RouteRecordName,
     fullPath,
-    meta: route.meta
-  }
-  return tabRoute
+    meta: route.meta,
+  };
+  return tabRoute;
 }
 
 /**
@@ -29,7 +29,7 @@ export function getTabRouteByVueRoute(
  * @param fullPath - 该页签的路径
  */
 export function getIndexInTabRoutes(tabs: GlobalTabRoute[], fullPath: string) {
-  return tabs.findIndex((tab) => tab.fullPath === fullPath)
+  return tabs.findIndex((tab) => tab.fullPath === fullPath);
 }
 
 /**
@@ -38,7 +38,7 @@ export function getIndexInTabRoutes(tabs: GlobalTabRoute[], fullPath: string) {
  * @param fullPath - 该页签的路径
  */
 export function isInTabRoutes(tabs: GlobalTabRoute[], fullPath: string) {
-  return getIndexInTabRoutes(tabs, fullPath) > -1
+  return getIndexInTabRoutes(tabs, fullPath) > -1;
 }
 
 /**
@@ -47,7 +47,7 @@ export function isInTabRoutes(tabs: GlobalTabRoute[], fullPath: string) {
  * @param routeName - 路由名称
  */
 export function getIndexInTabRoutesByRouteName(tabs: GlobalTabRoute[], routeName: string) {
-  return tabs.findIndex((tab) => tab.name === routeName)
+  return tabs.findIndex((tab) => tab.name === routeName);
 }
 
 /**
@@ -55,29 +55,29 @@ export function getIndexInTabRoutesByRouteName(tabs: GlobalTabRoute[], routeName
  * @param route 路由
  */
 function hasFullPath(
-  route: RouteRecordNormalized | RouteLocationNormalizedLoaded
+  route: RouteRecordNormalized | RouteLocationNormalizedLoaded,
 ): route is RouteLocationNormalizedLoaded {
-  return Boolean((route as RouteLocationNormalizedLoaded).fullPath)
+  return Boolean((route as RouteLocationNormalizedLoaded).fullPath);
 }
 
 /** 获取缓存的多页签数据 */
 export function getTabRoutes() {
-  const routes: GlobalTabRoute[] = []
-  const data: RemovableRef<any[]> = useStorage('multiTabRoutes', [])
+  const routes: GlobalTabRoute[] = [];
+  const data: RemovableRef<any[]> = useStorage('multiTabRoutes', []);
   if (data) {
     const defaultTabRoutes = data.value.map((item) => ({
       ...item,
       scrollPosition: {
         left: 0,
-        top: 0
-      }
-    }))
-    routes.push(...defaultTabRoutes)
+        top: 0,
+      },
+    }));
+    routes.push(...defaultTabRoutes);
   }
-  return routes
+  return routes;
 }
 
 /** 清空多页签数据 */
 export function clearTabRoutes() {
-  useStorage('multiTabRoutes', [])
+  useStorage('multiTabRoutes', []);
 }

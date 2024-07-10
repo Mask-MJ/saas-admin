@@ -1,11 +1,11 @@
 <script lang="ts" setup name="FullScreen">
-const { t } = useI18n()
-const { isFullscreen, toggle } = useFullscreen()
-const theme = useThemeStore()
+const { t } = useI18n();
+const { isFullscreen, toggle } = useFullscreen();
+const theme = useThemeStore();
 
 const tooltipContent = computed(() => {
-  return isFullscreen.value ? t('header.tooltipExitFull') : t('header.tooltipEntryFull')
-})
+  return isFullscreen.value ? t('header.tooltipExitFull') : t('header.tooltipEntryFull');
+});
 </script>
 
 <template>

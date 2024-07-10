@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps({ inverted: { type: Boolean, default: false } })
+defineProps({ inverted: { type: Boolean, default: false } });
 </script>
 
 <template>

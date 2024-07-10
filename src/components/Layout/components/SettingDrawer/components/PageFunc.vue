@@ -1,13 +1,13 @@
 <script lang="ts" setup name="PageFunc">
-import SettingMenu from './SettingMenu.vue'
+import SettingMenu from './SettingMenu.vue';
 
-const theme = useThemeStore()
-const tab = computed(() => theme.tab)
-const header = computed(() => theme.header)
-const menu = computed(() => theme.menu)
-const sider = computed(() => theme.sider)
-const footer = computed(() => theme.footer)
-const fixedHeaderAndTab = computed(() => theme.fixedHeaderAndTab)
+const theme = useThemeStore();
+const tab = computed(() => theme.tab);
+const header = computed(() => theme.header);
+const menu = computed(() => theme.menu);
+const sider = computed(() => theme.sider);
+const footer = computed(() => theme.footer);
+const fixedHeaderAndTab = computed(() => theme.fixedHeaderAndTab);
 </script>
 
 <template>

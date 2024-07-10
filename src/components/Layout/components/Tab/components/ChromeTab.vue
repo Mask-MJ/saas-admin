@@ -1,31 +1,31 @@
 <script setup lang="ts" name="ChromeTab">
-import { CssRender } from 'css-render'
-import SvgRadiusBg from './SvgRadiusBg.vue'
-import IconClose from './IconClose.vue'
+import { CssRender } from 'css-render';
+import SvgRadiusBg from './SvgRadiusBg.vue';
+import IconClose from './IconClose.vue';
 
 /** 填充颜色： [默认颜色, 暗黑主题颜色] */
-type FillColor = [string, string]
+type FillColor = [string, string];
 
 /** 混合比例：[默认, 暗黑] */
-type MixRatio = [number, number]
+type MixRatio = [number, number];
 
 interface Props {
   /** 暗黑模式 */
-  darkMode?: boolean
+  darkMode?: boolean;
   /** 激活状态 */
-  isActive?: boolean
+  isActive?: boolean;
   /** 主题颜色 */
-  primaryColor?: string
+  primaryColor?: string;
   /** 是否显示关闭图标 */
-  closable?: boolean
+  closable?: boolean;
   /** 背景颜色 */
-  bgColor?: FillColor
+  bgColor?: FillColor;
   /** 悬浮时的背景颜色 */
-  hoverBgColor?: FillColor
+  hoverBgColor?: FillColor;
   /** 激活状态时的混合颜色 */
-  mixColor?: FillColor
+  mixColor?: FillColor;
   /** 混合比例(主题颜色的占比) */
-  mixRatio?: MixRatio
+  mixRatio?: MixRatio;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -36,24 +36,24 @@ withDefaults(defineProps<Props>(), {
   bgColor: () => ['#ffffff', '#18181c'],
   hoverBgColor: () => ['#dee1e6', '#3f3c37'],
   mixColor: () => ['#ffffff', '#000'],
-  mixRatio: () => [0.13, 0.35]
-})
+  mixRatio: () => [0.13, 0.35],
+});
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<Emits>();
 
 interface Emits {
   /** 点击关闭图标 */
-  (e: 'close'): void
+  (e: 'close'): void;
 }
 
-const [value] = useToggle()
+const [value] = useToggle();
 
 function handleClose(e: MouseEvent) {
-  e.stopPropagation()
-  emit('close')
+  e.stopPropagation();
+  emit('close');
 }
 
-const { c } = CssRender()
+const { c } = CssRender();
 const style = c(
   '.admin-tab__chrome-tab',
   {
@@ -64,14 +64,14 @@ const style = c(
     paddingLeft: '24px',
     paddingRight: '24px',
     marginRight: '-18px',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   [
     c('&--active', {
-      zIndex: 10
+      zIndex: 10,
     }),
     c('&--hover', {
-      zIndex: 9
+      zIndex: 9,
     }),
     c('&__bg', {
       position: 'absolute',
@@ -79,15 +79,15 @@ const style = c(
       bottom: 0,
       width: '100%',
       height: '100%',
-      overflow: 'hidden'
+      overflow: 'hidden',
     }),
     c('&__slot', {
       position: 'relative',
       zIndex: 2,
-      whiteSpace: 'nowrap'
+      whiteSpace: 'nowrap',
     }),
     c('&__icon', {
-      paddingLeft: '18px'
+      paddingLeft: '18px',
     }),
     c(
       '&__divider',
@@ -99,21 +99,21 @@ const style = c(
         height: '16px',
         backgroundColor: '#1f2225',
         opacity: 1,
-        transition: 'opacity 0.3s ease-in-out'
+        transition: 'opacity 0.3s ease-in-out',
       },
       [
         c('&--hide', {
-          opacity: 0
+          opacity: 0,
         }),
         c('&--dark', {
-          backgroundColor: 'rgba(255,255,255,0.9) !important'
-        })
-      ]
-    )
-  ]
-)
-style.render()
-style.mount()
+          backgroundColor: 'rgba(255,255,255,0.9) !important',
+        }),
+      ],
+    ),
+  ],
+);
+style.render();
+style.mount();
 </script>
 
 <template>
@@ -145,7 +145,7 @@ style.mount()
       class="admin-tab__chrome-tab__divider"
       :class="{
         'admin-tab__chrome-tab__divider--hide': value || isActive,
-        'admin-tab__chrome-tab__divider--dark': darkMode
+        'admin-tab__chrome-tab__divider--dark': darkMode,
       }"
     />
   </div>

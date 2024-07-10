@@ -1,26 +1,26 @@
 <script lang="ts" setup name="IconClose">
-import { CssRender } from 'css-render'
-import SvgClose from './SvgClose.vue'
-import SvgCloseCircle from './SvgCloseCircle.vue'
+import { CssRender } from 'css-render';
+import SvgClose from './SvgClose.vue';
+import SvgCloseCircle from './SvgCloseCircle.vue';
 
 interface Props {
   /** 激活状态 */
-  isActive?: boolean
+  isActive?: boolean;
   /** 默认颜色 */
-  defaultColor?: string
+  defaultColor?: string;
   /** 激活时的颜色 */
-  activeColor?: string
+  activeColor?: string;
 }
 
 withDefaults(defineProps<Props>(), {
   isPrimary: false,
   defaultColor: '#9ca3af',
-  activeColor: '#1890ff'
-})
+  activeColor: '#1890ff',
+});
 
-const [value] = useToggle()
+const [value] = useToggle();
 
-const { c } = CssRender()
+const { c } = CssRender();
 const style = c(
   '.admin-tab__icon',
   {
@@ -30,18 +30,18 @@ const style = c(
     alignItems: 'center',
     width: '18px',
     height: '18px',
-    fontSize: '14px'
+    fontSize: '14px',
   },
   [
     c('&-fade', {}, [
       c('&-enter-active, &-leave-active', { transition: 'opacity 0.3s ease-in-out' }),
-      c('&-enter-from, &-leave-to', { opacity: 0 })
+      c('&-enter-from, &-leave-to', { opacity: 0 }),
     ]),
-    c('&-svg', { position: 'absolute', width: '16px', height: '16px' })
-  ]
-)
-style.render()
-style.mount()
+    c('&-svg', { position: 'absolute', width: '16px', height: '16px' }),
+  ],
+);
+style.render();
+style.mount();
 </script>
 
 <template>

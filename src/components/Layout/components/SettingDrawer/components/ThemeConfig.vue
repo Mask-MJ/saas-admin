@@ -1,15 +1,15 @@
 <script setup lang="ts" name="ThemeConfig">
-const theme = useThemeStore()
+const theme = useThemeStore();
 
-const dataClipboardText = ref(getClipboardText())
+const dataClipboardText = ref(getClipboardText());
 
 function getClipboardText() {
-  return JSON.stringify(theme.$state)
+  return JSON.stringify(theme.$state);
 }
 
 function handleResetConfig() {
-  theme.$reset()
-  window.$message?.success('已重置配置')
+  theme.$reset();
+  window.$message?.success('已重置配置');
 }
 </script>
 

@@ -1,23 +1,23 @@
 <script setup lang="ts" name="ColorModal">
-import ColorCheckbox from './ColorCheckbox.vue'
-import { traditionColors } from '@/settings/theme'
+import ColorCheckbox from './ColorCheckbox.vue';
+import { traditionColors } from '@/settings/theme';
 
 interface Props {
-  visible: boolean
+  visible: boolean;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<Emits>();
 
 interface Emits {
-  (e: 'close'): void
+  (e: 'close'): void;
 }
 
-const theme = useThemeStore()
+const theme = useThemeStore();
 
 function handleClose() {
-  emit('close')
+  emit('close');
 }
 </script>
 

@@ -1,10 +1,10 @@
 <script lang="ts" setup name="PageView">
-import SettingMenu from './SettingMenu.vue'
+import SettingMenu from './SettingMenu.vue';
 
-const theme = useThemeStore()
-const header = computed(() => theme.header)
-const tab = computed(() => theme.tab)
-const page = computed(() => theme.page)
+const theme = useThemeStore();
+const header = computed(() => theme.header);
+const tab = computed(() => theme.tab);
+const page = computed(() => theme.page);
 </script>
 
 <template>

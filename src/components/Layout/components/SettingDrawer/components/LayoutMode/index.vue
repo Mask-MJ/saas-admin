@@ -1,7 +1,7 @@
 <script setup lang="ts" name="LayoutMode">
-import { LayoutCheckbox } from './components'
+import { LayoutCheckbox } from './components';
 
-const theme = useThemeStore()
+const theme = useThemeStore();
 </script>
 
 <template>

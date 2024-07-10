@@ -1,12 +1,12 @@
 <script lang="ts" setup name="ThemeMode">
-const { t } = useI18n()
-const theme = useThemeStore()
+const { t } = useI18n();
+const theme = useThemeStore();
 
 const tooltipContent = computed(() => {
-  return theme.darkMode ? t('header.themeLight') : t('header.themeDark')
-})
+  return theme.darkMode ? t('header.themeLight') : t('header.themeDark');
+});
 function changeDark() {
-  theme.setDarkMode(!theme.darkMode)
+  theme.setDarkMode(!theme.darkMode);
 }
 </script>
 

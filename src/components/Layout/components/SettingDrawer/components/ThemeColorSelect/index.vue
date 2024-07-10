@@ -1,17 +1,17 @@
 <script setup lang="ts" name="ThemeColorSelect">
-import { computed } from 'vue'
-import { ColorCheckbox, ColorModal } from './components'
-import { isInTraditionColors } from '@/settings/theme'
+import { computed } from 'vue';
+import { ColorCheckbox, ColorModal } from './components';
+import { isInTraditionColors } from '@/settings/theme';
 
-const theme = useThemeStore()
+const theme = useThemeStore();
 
-const [value] = useToggle()
+const [value] = useToggle();
 
-const themeColor = computed(() => theme.themeColor)
+const themeColor = computed(() => theme.themeColor);
 
-const isInOther = computed(() => isInTraditionColors(themeColor.value))
-const otherColorBtnType = computed(() => (isInOther.value ? 'primary' : 'default'))
-const close = () => (value.value = false)
+const isInOther = computed(() => isInTraditionColors(themeColor.value));
+const otherColorBtnType = computed(() => (isInOther.value ? 'primary' : 'default'));
+const close = () => (value.value = false);
 </script>
 
 <template>

@@ -1,8 +1,8 @@
 <script setup lang="ts" name="MenuCollapse">
-const app = useAppStore()
-const theme = useThemeStore()
+const app = useAppStore();
+const theme = useThemeStore();
 function toggleSiderCollapse() {
-  app.setSiderCollapse(!app.siderCollapse)
+  app.setSiderCollapse(!app.siderCollapse);
 }
 </script>
 

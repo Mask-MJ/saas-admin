@@ -1,44 +1,44 @@
 <script setup lang="ts" name="TabDetail">
-import { computed, nextTick, reactive, ref, watch } from 'vue'
-import ButtonTab from './ButtonTab.vue'
-import ChromeTab from './ChromeTab.vue'
-import ContextMenu from './ContextMenu.vue'
+import { computed, nextTick, reactive, ref, watch } from 'vue';
+import ButtonTab from './ButtonTab.vue';
+import ChromeTab from './ChromeTab.vue';
+import ContextMenu from './ContextMenu.vue';
 
 interface Emits {
-  (e: 'scroll', clientX: number): void
+  (e: 'scroll', clientX: number): void;
 }
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<Emits>();
 
-const theme = useThemeStore()
-const tabStore = useTabStore()
-const isChromeMode = computed(() => theme.tab.mode === 'chrome')
-const activeComponent = computed(() => (isChromeMode.value ? ChromeTab : ButtonTab))
+const theme = useThemeStore();
+const tabStore = useTabStore();
+const isChromeMode = computed(() => theme.tab.mode === 'chrome');
+const activeComponent = computed(() => (isChromeMode.value ? ChromeTab : ButtonTab));
 
 // 获取当前激活的tab的clientX
-const tabRef = ref<HTMLElement>()
+const tabRef = ref<HTMLElement>();
 async function getActiveTabClientX() {
-  await nextTick()
+  await nextTick();
   if (
     tabRef.value &&
     tabRef.value.children.length &&
     tabRef.value.children[tabStore.activeTabIndex]
   ) {
-    const activeTabElement = tabRef.value.children[tabStore.activeTabIndex]
-    const { x, width } = activeTabElement.getBoundingClientRect()
-    const clientX = x + width / 2
+    const activeTabElement = tabRef.value.children[tabStore.activeTabIndex];
+    const { x, width } = activeTabElement.getBoundingClientRect();
+    const clientX = x + width / 2;
     setTimeout(() => {
-      emit('scroll', clientX)
-    }, 50)
+      emit('scroll', clientX);
+    }, 50);
   }
 }
 
 interface DropdownConfig {
-  visible: boolean
-  affix: boolean
-  x: number
-  y: number
-  currentPath: string
+  visible: boolean;
+  affix: boolean;
+  x: number;
+  y: number;
+  currentPath: string;
 }
 
 const dropdown: DropdownConfig = reactive({
@@ -46,30 +46,30 @@ const dropdown: DropdownConfig = reactive({
   affix: false,
   x: 0,
   y: 0,
-  currentPath: ''
-})
+  currentPath: '',
+});
 
 function setDropdown(config: Partial<DropdownConfig>) {
-  Object.assign(dropdown, config)
+  Object.assign(dropdown, config);
 }
 
-let isClickContextMenu = false
+let isClickContextMenu = false;
 
 function handleDropdownVisible(visible: boolean) {
-  if (!isClickContextMenu) setDropdown({ visible })
+  if (!isClickContextMenu) setDropdown({ visible });
 }
 
 /** 点击右键菜单 */
 async function handleContextMenu(e: MouseEvent, currentPath: string, affix?: boolean) {
-  e.preventDefault()
+  e.preventDefault();
 
-  const { clientX, clientY } = e
+  const { clientX, clientY } = e;
 
-  isClickContextMenu = true
+  isClickContextMenu = true;
 
-  const DURATION = dropdown.visible ? 150 : 0
+  const DURATION = dropdown.visible ? 150 : 0;
 
-  setDropdown({ visible: false })
+  setDropdown({ visible: false });
 
   setTimeout(() => {
     setDropdown({
@@ -77,21 +77,21 @@ async function handleContextMenu(e: MouseEvent, currentPath: string, affix?: boo
       x: clientX,
       y: clientY,
       currentPath,
-      affix
-    })
-    isClickContextMenu = false
-  }, DURATION)
+      affix,
+    });
+    isClickContextMenu = false;
+  }, DURATION);
 }
 
 watch(
   () => tabStore.activeTabIndex,
   () => {
-    getActiveTabClientX()
+    getActiveTabClientX();
   },
   {
-    immediate: true
-  }
-)
+    immediate: true,
+  },
+);
 </script>
 
 <template>
@@ -106,7 +106,7 @@ watch(
       :dark-mode="theme.darkMode"
       :class="{
         '!mr-0': isChromeMode && index === tabStore.getTabs.length - 1,
-        'mr-10px': !isChromeMode
+        'mr-10px': !isChromeMode,
       }"
       @click="tabStore.handleClickTab(item.fullPath)"
       @close="() => tabStore.removeTab(item.fullPath)"

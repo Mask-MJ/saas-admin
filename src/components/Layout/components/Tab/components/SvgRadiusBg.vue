@@ -1,29 +1,29 @@
 <script setup lang="ts" name="SvgRadiusBg">
-import { computed } from 'vue'
-import { mixinColor } from '@/settings/theme/themeColor'
+import { computed } from 'vue';
+import { mixinColor } from '@/settings/theme/themeColor';
 
 /** 填充颜色： [默认颜色, 暗黑主题颜色] */
-type FillColor = [string, string]
+type FillColor = [string, string];
 /** 混合比例：[默认, 暗黑] */
-type MixRatio = [number, number]
+type MixRatio = [number, number];
 
 interface Props {
   /** 暗黑模式 */
-  darkMode?: boolean
+  darkMode?: boolean;
   /** 激活状态 */
-  isActive?: boolean
+  isActive?: boolean;
   /** 鼠标悬浮状态 */
-  isHover?: boolean
+  isHover?: boolean;
   /** 主题颜色 */
-  primaryColor?: string
+  primaryColor?: string;
   /** 背景颜色 */
-  bgColor?: FillColor
+  bgColor?: FillColor;
   /** 悬浮时的背景颜色 */
-  hoverBgColor?: FillColor
+  hoverBgColor?: FillColor;
   /** 激活状态时的混合颜色 */
-  mixColor?: FillColor
+  mixColor?: FillColor;
   /** 混合比例(主题颜色的占比) */
-  mixRatio?: MixRatio
+  mixRatio?: MixRatio;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -34,20 +34,20 @@ const props = withDefaults(defineProps<Props>(), {
   bgColor: () => ['#ffffff', '#18181c'],
   hoverBgColor: () => ['#dee1e6', '#333333'],
   mixColor: () => ['#ffffff', '#000000'],
-  mixRatio: () => [0.2, 0.3]
-})
+  mixRatio: () => [0.2, 0.3],
+});
 
 const fill = computed(() => {
-  const index = Number(props.darkMode)
-  let color = props.bgColor[index]
-  if (props.isHover) color = props.hoverBgColor[index]
+  const index = Number(props.darkMode);
+  let color = props.bgColor[index];
+  if (props.isHover) color = props.hoverBgColor[index];
 
   if (props.isActive) {
-    const ratio = props.mixRatio[index]
-    color = mixinColor(props.mixColor[index], props.primaryColor, ratio)
+    const ratio = props.mixRatio[index];
+    color = mixinColor(props.mixColor[index], props.primaryColor, ratio);
   }
-  return color
-})
+  return color;
+});
 </script>
 
 <template>

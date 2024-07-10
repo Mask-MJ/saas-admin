@@ -3,7 +3,7 @@ import type { RemovableRef } from '@vueuse/core';
 import type { components } from '#/openapi';
 import { REFRESH_TOKEN_KEY, ACCESS_TOKEN_KEY, USER_INFO_KEY, PageEnum } from '@/settings';
 import { defineStore } from 'pinia';
-import { client } from '@/utils/request';
+import { client } from '@/utils';
 import { router } from '@/router';
 import { flatMapDeep } from 'lodash-es';
 import { transformersMenus } from './helper/user-helper';
@@ -15,7 +15,7 @@ interface UserState {
   accessToken: RemovableRef<string | null>;
   refreshToken: RemovableRef<string | null>;
   /** 用户信息 */
-  userInfo: RemovableRef<UserInfo | null>;
+  userInfo: RemovableRef<UserInfo>;
   /** 路由是否动态添加 */
   isDynamicAddedRoute: boolean;
   /** 后台返回的路由列表 */
@@ -27,7 +27,7 @@ export const useUserStore = defineStore('user-store', {
   state: (): UserState => ({
     accessToken: useStorage(ACCESS_TOKEN_KEY, null),
     refreshToken: useStorage(REFRESH_TOKEN_KEY, null),
-    userInfo: useStorage(USER_INFO_KEY, null),
+    userInfo: useStorage(USER_INFO_KEY, {} as UserInfo),
     isDynamicAddedRoute: false,
     backendRouteList: [],
     menus: [],
@@ -39,8 +39,8 @@ export const useUserStore = defineStore('user-store', {
     getRefreshToken(): string | null {
       return this.refreshToken;
     },
-    getUserInfo(): UserInfo | null {
-      return this.userInfo || null;
+    getUserInfo(): UserInfo {
+      return this.userInfo;
     },
     getMenuList(): MenuOption[] {
       return transformersMenus(this.backendRouteList);

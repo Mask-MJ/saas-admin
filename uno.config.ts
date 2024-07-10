@@ -1,13 +1,13 @@
 // import { icons as lineMd } from '@iconify-json/line-md'
-// import { icons as antDesign } from '@iconify-json/ant-design';
+import { icons as antDesign } from '@iconify-json/ant-design';
 import presetIcons from 'unocss/preset-icons';
 import presetUno from 'unocss/preset-uno';
 import { defineConfig } from 'unocss/vite';
 
 // Todo 全量导入 vite 启动太慢
-// const IconNames = [
-//   ...Object.keys(antDesign.icons).map((iconName) => `i-${antDesign.prefix}:${iconName}`),
-// ];
+const IconNames = [
+  ...Object.keys(antDesign.icons).map((iconName) => `i-${antDesign.prefix}:${iconName}`),
+];
 
 export default defineConfig({
   transformers: [],
@@ -30,6 +30,6 @@ export default defineConfig({
     'fixed-center': 'fixed-lt flex-center w-full h-full',
     'transition-base': 'transition-all duration-300 ease-in-out',
   },
-  // safelist: [...'prose prose-sm m-auto text-left'.split(' '), ...IconNames],
-  safelist: [...'prose prose-sm m-auto text-left'.split(' ')],
+  safelist: [...'prose prose-sm m-auto text-left'.split(' '), ...IconNames],
+  // safelist: [...'prose prose-sm m-auto text-left'.split(' ')],
 });

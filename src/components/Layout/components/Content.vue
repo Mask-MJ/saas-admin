@@ -1,15 +1,15 @@
 <script setup lang="ts" name="LayoutContent">
 interface Props {
   /** 显示padding */
-  showPadding?: boolean
+  showPadding?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
-  showPadding: true
-})
+  showPadding: true,
+});
 
-const app = useAppStore()
-const themeStore = useThemeStore()
+const app = useAppStore();
+const themeStore = useThemeStore();
 </script>
 
 <template>

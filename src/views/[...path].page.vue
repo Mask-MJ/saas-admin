@@ -8,7 +8,7 @@
 <route lang="json">
 {
   "meta": {
-    "icon": "i-ant-design:appstore-outlined",
+    "icon": "i-ant-design:exclamation-circle-outlined",
     "title": "404"
   }
 }

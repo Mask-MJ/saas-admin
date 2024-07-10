@@ -1,44 +1,44 @@
 <script setup lang="ts" name="ContextMenu">
-import type { DropdownOption } from 'naive-ui'
+import type { DropdownOption } from 'naive-ui';
 
 interface Props {
   /** 右键菜单可见性 */
-  visible?: boolean
+  visible?: boolean;
   /** 当前路由路径 */
-  currentPath?: string
+  currentPath?: string;
   /** 是否固定在tab卡不可关闭  */
-  affix?: boolean
+  affix?: boolean;
   /** 鼠标x坐标 */
-  x: number
+  x: number;
   /** 鼠标y坐标 */
-  y: number
+  y: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   visible: false,
-  currentPath: ''
-})
+  currentPath: '',
+});
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<Emits>();
 
 interface Emits {
-  (e: 'update:visible', visible: boolean): void
+  (e: 'update:visible', visible: boolean): void;
 }
 
-const app = useAppStore()
-const tab = useTabStore()
+const app = useAppStore();
+const tab = useTabStore();
 
 const dropdownVisible = computed({
   get() {
-    return props.visible
+    return props.visible;
   },
   set(visible: boolean) {
-    emit('update:visible', visible)
-  }
-})
+    emit('update:visible', visible);
+  },
+});
 
 function hide() {
-  dropdownVisible.value = false
+  dropdownVisible.value = false;
 }
 
 type DropdownKey =
@@ -47,91 +47,91 @@ type DropdownKey =
   | 'close-other'
   | 'close-left'
   | 'close-right'
-  | 'close-all'
+  | 'close-all';
 type Option = DropdownOption & {
-  key: DropdownKey
-}
+  key: DropdownKey;
+};
 
 const options = computed<Option[]>(() => [
   {
     label: '重新加载',
     key: 'reload-current',
     disabled: props.currentPath !== tab.activeTab,
-    icon: () => h('i', { class: 'i-ant-design:reload-outlined' })
+    icon: () => h('i', { class: 'i-ant-design:reload-outlined' }),
   },
   {
     label: '关闭',
     key: 'close-current',
     disabled: props.currentPath === tab.homeTab.fullPath || Boolean(props.affix),
-    icon: () => h('i', { class: 'i-ant-design:close-outlined' })
+    icon: () => h('i', { class: 'i-ant-design:close-outlined' }),
   },
   {
     label: '关闭其他',
     key: 'close-other',
-    icon: () => h('i', { class: 'i-ant-design:delete-column-outlined' })
+    icon: () => h('i', { class: 'i-ant-design:delete-column-outlined' }),
   },
   {
     label: '关闭左侧',
     key: 'close-left',
-    icon: () => h('i', { class: 'i-ant-design:arrow-left-outlined' })
+    icon: () => h('i', { class: 'i-ant-design:arrow-left-outlined' }),
   },
   {
     label: '关闭右侧',
     key: 'close-right',
-    icon: () => h('i', { class: 'i-ant-design:arrow-right-outlined' })
+    icon: () => h('i', { class: 'i-ant-design:arrow-right-outlined' }),
   },
   {
     label: '关闭所有',
     key: 'close-all',
-    icon: () => h('i', { class: 'i-ant-design:delete-outlined' })
-  }
-])
+    icon: () => h('i', { class: 'i-ant-design:delete-outlined' }),
+  },
+]);
 
 const actionMap = new Map<DropdownKey, () => void>([
   [
     'reload-current',
     () => {
-      app.reloadPage()
-    }
+      app.reloadPage();
+    },
   ],
   [
     'close-current',
     () => {
-      tab.removeTab(props.currentPath)
-    }
+      tab.removeTab(props.currentPath);
+    },
   ],
   [
     'close-other',
     () => {
-      tab.clearTab([props.currentPath])
-    }
+      tab.clearTab([props.currentPath]);
+    },
   ],
   [
     'close-left',
     () => {
-      tab.clearLeftTab(props.currentPath)
-    }
+      tab.clearLeftTab(props.currentPath);
+    },
   ],
   [
     'close-right',
     () => {
-      tab.clearRightTab(props.currentPath)
-    }
+      tab.clearRightTab(props.currentPath);
+    },
   ],
   [
     'close-all',
     () => {
-      tab.clearAllTab()
-    }
-  ]
-])
+      tab.clearAllTab();
+    },
+  ],
+]);
 
 function handleDropdown(optionKey: string) {
-  const key = optionKey as DropdownKey
-  const actionFunc = actionMap.get(key)
-  if (actionFunc) actionFunc()
+  const key = optionKey as DropdownKey;
+  const actionFunc = actionMap.get(key);
+  if (actionFunc) actionFunc();
 
-  hide()
+  hide();
 }
 </script>
 

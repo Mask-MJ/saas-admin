@@ -1,11 +1,11 @@
 <script setup lang="ts" name="BasicSider">
-import Logo from '../Logo.vue'
-import BasicMenu from './BasicMenu.vue'
+import Logo from '../Logo.vue';
+import BasicMenu from './BasicMenu.vue';
 
-const app = useAppStore()
-const theme = useThemeStore()
-const isHorizontalMix = computed(() => theme.layout.mode === 'horizontal-mix')
-const showTitle = computed(() => !app.siderCollapse && theme.layout.mode !== 'vertical-mix')
+const app = useAppStore();
+const theme = useThemeStore();
+const isHorizontalMix = computed(() => theme.layout.mode === 'horizontal-mix');
+const showTitle = computed(() => !app.siderCollapse && theme.layout.mode !== 'vertical-mix');
 </script>
 
 <template>

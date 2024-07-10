@@ -1,19 +1,19 @@
 <script lang="ts" setup name="ColorCheckbox">
 interface Props {
   /** 颜色 */
-  color: string
+  color: string;
   /** 是否选中 */
-  checked: boolean
+  checked: boolean;
   /** 图标的class */
-  iconClass?: string
+  iconClass?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  iconClass: 'text-14px'
-})
+  iconClass: 'text-14px',
+});
 
-const whiteColors = ['#ffffff', '#fff', 'rgb(255,255,255)']
-const isWhite = computed(() => whiteColors.includes(props.color))
+const whiteColors = ['#ffffff', '#fff', 'rgb(255,255,255)'];
+const isWhite = computed(() => whiteColors.includes(props.color));
 </script>
 
 <template>

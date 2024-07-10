@@ -9,7 +9,7 @@
 <route lang="json">
 {
   "meta": {
-    "icon": "i-ant-design:appstore-outlined",
+    "icon": "i-ant-design:laptop-outlined",
     "title": "工作台"
   }
 }

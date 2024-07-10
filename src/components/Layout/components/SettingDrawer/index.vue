@@ -5,10 +5,10 @@ import {
   PageFunc,
   PageView,
   ThemeColorSelect,
-  ThemeConfig
-} from './components'
+  ThemeConfig,
+} from './components';
 
-const app = useAppStore()
+const app = useAppStore();
 </script>
 
 <template>

@@ -1,21 +1,21 @@
 <script setup lang="ts">
 const props = defineProps({
-  dark: { type: Boolean, default: false }
-})
+  dark: { type: Boolean, default: false },
+});
 
-const emit = defineEmits(['update:dark'])
+const emit = defineEmits(['update:dark']);
 
 const darkMode = computed<boolean>({
   get() {
-    return props.dark
+    return props.dark;
   },
   set(newValue) {
-    emit('update:dark', newValue)
-  }
-})
+    emit('update:dark', newValue);
+  },
+});
 
 function handleSwitch() {
-  darkMode.value = !darkMode.value
+  darkMode.value = !darkMode.value;
 }
 </script>
 

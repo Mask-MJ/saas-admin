@@ -1,21 +1,21 @@
 <script setup lang="ts" name="LayoutTab">
-import { useRoute } from 'vue-router/auto'
-import ReloadButton from './components/ReloadButton.vue'
-import TabDetail from './components/TabDetail.vue'
+import { useRoute } from 'vue-router/auto';
+import ReloadButton from './components/ReloadButton.vue';
+import TabDetail from './components/TabDetail.vue';
 
-const route = useRoute()
-const themeStore = useThemeStore()
-const tabStore = useTabStore()
+const route = useRoute();
+const themeStore = useThemeStore();
+const tabStore = useTabStore();
 
 // tabStore.iniTabStore(route)
 
 watch(
   () => route.fullPath,
   () => {
-    tabStore.addTab(route)
-    tabStore.setActiveTab(route.fullPath)
-  }
-)
+    tabStore.addTab(route);
+    tabStore.setActiveTab(route.fullPath);
+  },
+);
 </script>
 
 <template>
