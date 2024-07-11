@@ -793,72 +793,15 @@ export interface components {
              */
             account: string;
             /**
-             * @description 密码
-             * @example 123456
-             */
-            password: string;
-            /**
              * @description 昵称
              * @example 管理员
              */
             nickname?: string;
             /**
-             * @description 头像
-             * @example http://xxx.com/xxx.jpg
+             * @description 密码
+             * @example 123456
              */
-            avatar?: string;
-            /**
-             * @description 邮箱
-             * @example xxx@qq.com
-             */
-            email?: string;
-            /**
-             * @description 手机号
-             * @example 18888888888
-             */
-            phoneNumber?: string;
-            /**
-             * @description 性别 0: 女 1: 男
-             * @example 1
-             */
-            sex?: number;
-            /**
-             * @description 状态 false: 禁用 true: 启用
-             * @default true
-             * @example true
-             */
-            status: boolean;
-            /**
-             * @description 备注
-             * @example 备注
-             */
-            remark?: string;
-            /**
-             * @description 岗位ID
-             * @example 1
-             */
-            postId?: number;
-            /**
-             * @description 部门ID
-             * @example 1
-             */
-            deptId?: number;
-            /**
-             * @description 角色ID
-             * @example [
-             *       1,
-             *       2
-             *     ]
-             */
-            roleIds?: number[];
-            /**
-             * @description 菜单ID
-             * @example [
-             *       1,
-             *       2
-             *     ]
-             */
-            menuIds?: number[];
+            password: string;
         };
         SignInDto: {
             account: string;
@@ -969,6 +912,7 @@ export interface components {
             password: string;
         };
         UpdateUserDto: {
+            id: number;
             /**
              * @description 账号
              * @example admin

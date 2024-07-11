@@ -7,8 +7,8 @@ import { client } from '@/utils';
 import { router } from '@/router';
 import { flatMapDeep } from 'lodash-es';
 import { transformersMenus } from './helper/user-helper';
+import type { UserInfo } from '@/api/system/user';
 
-export type UserInfo = components['schemas']['UserEntity'];
 export type MenuInfo = components['schemas']['MenuEntity'];
 interface UserState {
   /** Token */

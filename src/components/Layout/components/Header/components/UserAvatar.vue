@@ -1,5 +1,5 @@
 <script lang="ts" setup name="UserAvatar">
-import type { UserInfo } from '@/stores/user';
+import type { UserInfo } from '@/api/system/user';
 import type { DropdownOption } from 'naive-ui';
 
 const { t } = useI18n();

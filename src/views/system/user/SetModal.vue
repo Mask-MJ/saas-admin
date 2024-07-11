@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { UserInfo } from '@/stores/user';
+import type { UserInfo } from '@/api/system/user';
 // import { createUser, updateUser, type UserInfo } from '@/api/system/user';
 import { useForm } from '@/components/Form';
 import { useModalInner } from '@/components/Modal';

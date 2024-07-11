@@ -1,6 +1,5 @@
 import type { FormSchema } from '@/components/Form';
 import type { BasicColumn } from '@/components/Table';
-import { client } from '@/utils';
 
 import { NPopconfirm, NSwitch } from 'naive-ui';
 import { getRoleList } from '@/api/system/role';
