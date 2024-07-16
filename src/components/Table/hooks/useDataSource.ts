@@ -190,7 +190,7 @@ export function useDataSource(
         params = (await beforeFetch(params)) || params;
       }
 
-      const res = await api(params);
+      const { data: res } = await api(params);
       rawDataSourceRef.value = res;
 
       const isArrayResult = Array.isArray(res);

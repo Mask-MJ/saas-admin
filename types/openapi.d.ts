@@ -396,6 +396,57 @@ export interface paths {
         patch: operations["UnitController_update"];
         trace?: never;
     };
+    "/api/system/rule": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 获取规则列表 */
+        get: operations["RuleController_findAll"];
+        put?: never;
+        /** 创建规则 */
+        post: operations["RuleController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/system/rule/upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 上传规则文件 */
+        post: operations["RuleController_upload"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/system/rule/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["RuleController_findOne"];
+        put?: never;
+        post?: never;
+        delete: operations["RuleController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["RuleController_update"];
+        trace?: never;
+    };
     "/api/monitor/operation-log": {
         parameters: {
             query?: never;
@@ -888,6 +939,22 @@ export interface components {
              */
             menuIds?: number[];
         };
+        RoleEntity: {
+            id: number;
+            name: string;
+            value: string;
+            sort: number;
+            remark: string;
+            createBy: string;
+            updateBy: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            menu: number[];
+            user: number[];
+            factory: number[];
+        };
         UserEntity: {
             id: number;
             isAdmin: boolean;
@@ -896,6 +963,7 @@ export interface components {
             avatar: string;
             email: string;
             phoneNumber: string;
+            role: components["schemas"]["RoleEntity"][];
             sex: number;
             status: boolean;
             createBy: string;
@@ -1032,7 +1100,6 @@ export interface components {
             email: string;
             parentId: number | null;
             remark: string | null;
-            children: components["schemas"]["DeptEntity"][];
             createBy: string;
             updateBy: string | null;
             /** Format: date-time */
@@ -1040,7 +1107,25 @@ export interface components {
             /** Format: date-time */
             updatedAt: string;
         };
+        DeptTreeEntity: {
+            id: number;
+            name: string;
+            sort: number;
+            leader: string;
+            phone: string;
+            email: string;
+            parentId: number | null;
+            remark: string | null;
+            createBy: string;
+            updateBy: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            children: components["schemas"]["DeptEntity"][];
+        };
         UpdateDeptDto: {
+            id: number;
             /**
              * @description 部门名称
              * @example 技术部
@@ -1132,6 +1217,7 @@ export interface components {
             updatedAt: string;
         };
         UpdateDictDataDto: {
+            id: number;
             /**
              * @description 字典数据名称
              * @example 性别
@@ -1199,6 +1285,7 @@ export interface components {
             updatedAt: string;
         };
         UpdateDictTypeDto: {
+            id: number;
             /**
              * @description 字典名称
              * @example 性别
@@ -1271,9 +1358,27 @@ export interface components {
             createdAt: string;
             /** Format: date-time */
             updatedAt: string;
+        };
+        MenuTreeEntity: {
+            id: number;
+            name: string;
+            path: string;
+            icon: string;
+            hidden: boolean;
+            status: boolean;
+            sort: number;
+            parentId: number | null;
+            remark: string;
+            createBy: string;
+            updateBy: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
             children: components["schemas"]["MenuEntity"][];
         };
         UpdateMenuDto: {
+            id: number;
             /**
              * @description 菜单名称
              * @example 系统管理
@@ -1354,23 +1459,8 @@ export interface components {
              */
             factoryIds: number[];
         };
-        RoleEntity: {
-            id: number;
-            name: string;
-            value: string;
-            sort: number;
-            remark: string;
-            createBy: string;
-            updateBy: string;
-            /** Format: date-time */
-            createdAt: string;
-            /** Format: date-time */
-            updatedAt: string;
-            menu: number[];
-            user: number[];
-            factory: number[];
-        };
         UpdateRoleDto: {
+            id: number;
             /**
              * @description 权限名称
              * @example 管理员
@@ -1447,6 +1537,7 @@ export interface components {
             updatedAt: string;
         };
         UpdatePostDto: {
+            id: number;
             /**
              * @description 岗位编码
              * @example tech
@@ -1470,12 +1561,12 @@ export interface components {
         };
         CreateUnitDto: {
             /**
-             * @description 权限名称
+             * @description 单位名称
              * @example 管理员
              */
             name: string;
             /**
-             * @description 权限值
+             * @description 单位值
              * @example admin
              */
             value: string;
@@ -1496,16 +1587,73 @@ export interface components {
             updatedAt: string;
         };
         UpdateUnitDto: {
+            id: number;
             /**
-             * @description 权限名称
+             * @description 单位名称
              * @example 管理员
              */
             name?: string;
             /**
-             * @description 权限值
+             * @description 单位值
              * @example admin
              */
             value?: string;
+            /**
+             * @description 备注
+             * @example 备注
+             */
+            remark?: string;
+        };
+        CreateRuleDto: {
+            /**
+             * @description 规则名称
+             * @example hard-规则-20240609
+             */
+            name: string;
+            /**
+             * @description 文件路径
+             * @example http://xxx.com/xxx.xslx
+             */
+            url: string;
+            /**
+             * @description 文件名
+             * @example 文件名
+             */
+            fileName: string;
+            /**
+             * @description 备注
+             * @example 备注
+             */
+            remark?: string;
+        };
+        RuleEntity: {
+            id: number;
+            name: string;
+            url: string;
+            fileName: string;
+            remark: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        UpdateRuleDto: {
+            id: number;
+            /**
+             * @description 规则名称
+             * @example hard-规则-20240609
+             */
+            name?: string;
+            /**
+             * @description 文件路径
+             * @example http://xxx.com/xxx.xslx
+             */
+            url?: string;
+            /**
+             * @description 文件名
+             * @example 文件名
+             */
+            fileName?: string;
             /**
              * @description 备注
              * @example 备注
@@ -1605,6 +1753,22 @@ export interface components {
              */
             factoryId: number;
         };
+        FactoryEntity: {
+            id: number;
+            name: string;
+            status: boolean;
+            address: string;
+            longitude: string;
+            latitude: string;
+            parentId: number | null;
+            remark: string;
+            createBy: string;
+            updateBy: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
         ContractEntity: {
             id: number;
             name: string;
@@ -1617,6 +1781,7 @@ export interface components {
             saler: string;
             remark: string;
             factoryId: number;
+            factory: components["schemas"]["FactoryEntity"];
             createBy: string;
             updateBy: string;
             /** Format: date-time */
@@ -1625,6 +1790,7 @@ export interface components {
             updatedAt: string;
         };
         UpdateContractDto: {
+            id: number;
             /**
              * @description 合同名称
              * @example 合同1
@@ -1715,6 +1881,7 @@ export interface components {
             status: boolean;
             remark: string;
             factoryId: number;
+            factory: components["schemas"]["FactoryEntity"];
             createBy: string;
             updateBy: string;
             /** Format: date-time */
@@ -1723,6 +1890,7 @@ export interface components {
             updatedAt: string;
         };
         UpdateDeviceDto: {
+            id: number;
             /**
              * @description 装置名称
              * @example 装置1
@@ -1796,7 +1964,7 @@ export interface components {
              */
             parentId?: number;
         };
-        FactoryEntity: {
+        FactoryTreeEntity: {
             id: number;
             name: string;
             status: boolean;
@@ -1811,8 +1979,10 @@ export interface components {
             createdAt: string;
             /** Format: date-time */
             updatedAt: string;
+            children: components["schemas"]["FactoryEntity"][];
         };
         UpdateFactoryDto: {
+            id: number;
             /**
              * @description 工厂名称
              * @example 工厂1
@@ -2034,6 +2204,8 @@ export interface components {
         ValveEntity: {
             id: number;
             tag: string;
+            device: components["schemas"]["DeviceEntity"];
+            factory: components["schemas"]["FactoryEntity"];
             unit: string;
             fluidName: string;
             criticalApplication: string;
@@ -2102,6 +2274,7 @@ export interface components {
             valveHistoryDataListId: number;
         };
         UpdateValveDto: {
+            id: number;
             /**
              * @description 阀门位号
              * @example FV-3001B
@@ -2308,6 +2481,11 @@ export interface components {
              */
             factoryId: number;
             /**
+             * @description 规则ID
+             * @example 1
+             */
+            ruleId: number;
+            /**
              * @description 备注
              * @default
              * @example 备注
@@ -2320,7 +2498,10 @@ export interface components {
             status: number;
             remark: string;
             dictTypeId: number;
+            dict: components["schemas"]["DictTypeEntity"];
             factoryId: number;
+            factory: components["schemas"]["FactoryEntity"];
+            ruleId: number;
             createBy: string;
             updateBy: string;
             /** Format: date-time */
@@ -2337,6 +2518,7 @@ export interface components {
             data: Record<string, never>;
         };
         UpdateAnalysisTaskDto: {
+            id: number;
             /**
              * @description 任务名称
              * @example 分析任务1
@@ -2364,6 +2546,11 @@ export interface components {
              * @example 1
              */
             factoryId?: number;
+            /**
+             * @description 规则ID
+             * @example 1
+             */
+            ruleId?: number;
             /**
              * @description 备注
              * @default
@@ -2713,7 +2900,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DeptEntity"][];
+                    "application/json": components["schemas"]["DeptTreeEntity"][];
                 };
             };
         };
@@ -3122,7 +3309,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MenuEntity"][];
+                    "application/json": components["schemas"]["MenuTreeEntity"][];
                 };
             };
         };
@@ -3491,12 +3678,12 @@ export interface operations {
         parameters: {
             query?: {
                 /**
-                 * @description 权限名称
+                 * @description 单位名称
                  * @example 管理员
                  */
                 name?: string;
                 /**
-                 * @description 权限值
+                 * @description 单位值
                  * @example admin
                  */
                 value?: string;
@@ -3610,6 +3797,152 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["UpdateUnitDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RuleController_findAll: {
+        parameters: {
+            query?: {
+                /**
+                 * @description 规则名称
+                 * @example hard-规则-20240609
+                 */
+                name?: string;
+                /**
+                 * @description 页码
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description 每页数量
+                 * @example 10
+                 */
+                pageSize?: number;
+                /**
+                 * @description 开始时间
+                 * @example 1714752000000
+                 */
+                beginTime?: string;
+                /**
+                 * @description 结束时间
+                 * @example 1716048000000
+                 */
+                endTime?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RuleEntity"][];
+                };
+            };
+        };
+    };
+    RuleController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRuleDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RuleEntity"];
+                };
+            };
+        };
+    };
+    RuleController_upload: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RuleController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RuleController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RuleController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateRuleDto"];
             };
         };
         responses: {
@@ -4072,7 +4405,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FactoryEntity"][];
+                    "application/json": components["schemas"]["FactoryTreeEntity"][];
                 };
             };
         };
@@ -4506,7 +4839,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": Record<string, never>;
+                };
             };
         };
     };
