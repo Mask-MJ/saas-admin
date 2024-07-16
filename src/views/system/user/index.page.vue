@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { UserInfo } from '@/api/system/user';
-// import { deleteUser, getUserDetail, getUsersList } from '@/api/system/user';
+import { deleteUser, getUserDetail, getUserList, type UserInfo } from '@/api/system/user';
 import { useModal } from '@/components/Modal';
 import { Action, useTable } from '@/components/Table';
-import { client } from '@/utils';
 
 import { columns, searchSchemas } from './data';
 import ResetModal from './ResetModal.vue';
@@ -13,7 +11,7 @@ const [registerSetModal, { openModal: openSetModel }] = useModal();
 const [registerResetModal, { openModal: openResetModel }] = useModal();
 
 const [registerTable, { reload }] = useTable({
-  api: () => client.GET('/api/system/user'), // 请求接口
+  api: getUserList, // 请求接口
   columns, // 展示的列
   useSearchForm: true, // 启用搜索表单
   formConfig: { labelWidth: 100, schemas: searchSchemas }, // 搜索表单配置
@@ -30,9 +28,7 @@ const [registerTable, { reload }] = useTable({
               {
                 type: 'edit',
                 onClick: async () => {
-                  const { data } = await client.GET('/api/system/user/{id}', {
-                    params: { path: { id: row.id } },
-                  });
+                  const { data } = await getUserDetail(row.id);
                   return openSetModel(true, data);
                 },
               },
@@ -47,9 +43,7 @@ const [registerTable, { reload }] = useTable({
               {
                 type: 'del',
                 onClick: async () => {
-                  await client.DELETE('/api/system/user/{id}', {
-                    params: { path: { id: row.id } },
-                  });
+                  await deleteUser(row.id);
                   await reload();
                 },
               },

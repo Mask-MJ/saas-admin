@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { updateUser } from '@/api/system/user';
 import { useForm } from '@/components/Form';
 import { useModalInner } from '@/components/Modal';
 
 import { resetSchemas } from './data';
-import { client } from '@/utils';
 
 const [registerForm, { validate, getPathsValue, setPathsValue }] = useForm({
   labelWidth: 100,
@@ -17,10 +17,7 @@ const handleSubmit = async () => {
   try {
     await validate();
     const result = getPathsValue();
-    await client.PATCH('/api/system/user/{id}', {
-      params: { path: { id: result.id } },
-      body: result,
-    });
+    await updateUser(result);
     window.$message.success(`修改成功`);
     closeModal();
   } catch {

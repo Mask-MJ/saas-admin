@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import type { UserInfo } from '@/api/system/user';
-// import { createUser, updateUser, type UserInfo } from '@/api/system/user';
+import { createUser, updateUser, type UserInfo } from '@/api/system/user';
 import { useForm } from '@/components/Form';
 import { useModalInner } from '@/components/Modal';
 
 import { setSchemas } from './data';
-import { client } from '@/utils';
 
 const emits = defineEmits(['success', 'register']);
 const [registerForm, { validate, getPathsValue, setPathsValue }] = useForm({
@@ -24,12 +22,7 @@ const handleSubmit = async () => {
   try {
     await validate();
     const result = getPathsValue();
-    result.id
-      ? await client.PATCH('/api/system/user/{id}', {
-          params: { path: { id: result.id } },
-          body: result,
-        })
-      : await client.POST('/api/system/user', { body: result });
+    result.id ? await updateUser(result) : await createUser(result);
     emits('success');
     closeModal();
   } catch (error) {
