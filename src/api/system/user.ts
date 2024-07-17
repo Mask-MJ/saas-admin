@@ -14,7 +14,7 @@ export const login = (body: components['schemas']['SignInDto']) =>
 export const getSelfInfo = () => client.GET('/api/system/user/info');
 
 // 获取用户列表
-export const getUserList = (query: SearchParams) =>
+export const getUserList = (query?: SearchParams) =>
   client.GET('/api/system/user', { params: { query } });
 // 创建用户
 export const createUser = (body: components['schemas']['CreateUserDto']) =>

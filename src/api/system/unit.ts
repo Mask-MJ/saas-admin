@@ -5,7 +5,7 @@ export type UnitInfo = components['schemas']['UnitEntity'];
 export type SearchParams = operations['UnitController_findAll']['parameters']['query'];
 
 // 获取单位列表
-export const getUnitList = (query: SearchParams) =>
+export const getUnitList = (query?: SearchParams) =>
   client.GET('/api/system/unit', { params: { query } });
 // 创建单位
 export const createUnit = (body: components['schemas']['CreateUnitDto']) =>

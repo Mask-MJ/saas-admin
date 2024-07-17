@@ -5,7 +5,7 @@ export type MenuInfo = components['schemas']['MenuEntity'];
 export type SearchParams = operations['MenuController_findAll']['parameters']['query'];
 
 // 获取菜单列表
-export const getMenuList = (query: SearchParams) =>
+export const getMenuList = (query?: SearchParams) =>
   client.GET('/api/system/menu', { params: { query } });
 // 创建菜单
 export const createMenu = (body: components['schemas']['CreateMenuDto']) =>

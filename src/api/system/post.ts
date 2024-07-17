@@ -5,7 +5,7 @@ export type PostInfo = components['schemas']['PostEntity'];
 export type SearchParams = operations['PostController_findAll']['parameters']['query'];
 
 // 获取岗位列表
-export const getPostList = (query: SearchParams) =>
+export const getPostList = (query?: SearchParams) =>
   client.GET('/api/system/post', { params: { query } });
 // 创建岗位
 export const createPost = (body: components['schemas']['CreatePostDto']) =>

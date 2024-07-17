@@ -5,7 +5,7 @@ export type DeptInfo = components['schemas']['DeptEntity'];
 export type SearchParam = operations['DeptController_findAll']['parameters']['query'];
 
 // 获取部门列表
-export const getDeptList = (query: SearchParam) =>
+export const getDeptList = (query?: SearchParam) =>
   client.GET('/api/system/dept', { params: { query } });
 // 创建部门
 export const createDept = (body: components['schemas']['CreateDeptDto']) =>

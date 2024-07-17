@@ -6,7 +6,7 @@ export type DictTypeInfo = operations['DictTypeController_findAll']['parameters'
 export type SearchParams = operations['DictTypeController_findAll']['parameters']['query'];
 
 // 获取字典列表
-export const getDictTypeList = (query: SearchParams) =>
+export const getDictTypeList = (query?: SearchParams) =>
   client.GET('/api/system/dict-type', { params: { query } });
 // 创建字典
 export const createDictType = (body: components['schemas']['CreateDictTypeDto']) =>
