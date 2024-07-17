@@ -36,7 +36,7 @@ const [registerTable, { reload }] = useTable({
           },
           {
             icon: 'i-line-md:list-3',
-            tooltipProps: { content: '字典管理' },
+            tooltipProps: { content: '模版管理' },
             buttonProps: {
               type: 'success',
               onClick: () => router.push(`/system/dictData/${row.id}`),

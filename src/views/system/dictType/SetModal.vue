@@ -9,7 +9,7 @@ const emits = defineEmits(['success', 'register']);
 
 const [registerModal, { closeModal, setModalProps }] = useModalInner((data: DictTypeInfo) => {
   if (data.id) {
-    setModalProps({ title: '编辑字典' });
+    setModalProps({ title: '编辑模版' });
     setPathsValue(data);
   }
 });
@@ -33,7 +33,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <Modal title="新增字典" class="!w-100" @register="registerModal" @positive-click="handleSubmit">
+  <Modal title="新增模版" class="!w-100" @register="registerModal" @positive-click="handleSubmit">
     <Form @register="registerForm" />
   </Modal>
 </template>
