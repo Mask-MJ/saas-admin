@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import type { UploadFileInfo } from 'naive-ui';
-import type { UploadFileParams } from '@/utils/request/types';
 import { isArray } from 'lodash-es';
 
 const emits = defineEmits(['update:fileList']);
