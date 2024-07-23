@@ -18,7 +18,6 @@ import type {
   UploadProps,
 } from 'naive-ui';
 import type { FormActionType, FormSchema } from './types';
-import type { UploadFileParams } from '@/utils/request/types';
 
 export interface FormComponentProps {
   schema: FormSchema;

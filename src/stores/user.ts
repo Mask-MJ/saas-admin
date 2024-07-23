@@ -9,7 +9,7 @@ import { flatMapDeep } from 'lodash-es';
 import { transformersMenus } from './helper/user-helper';
 import type { UserInfo } from '@/api/system/user';
 
-export type MenuInfo = components['schemas']['MenuEntity'];
+export type MenuInfo = components['schemas']['MenuTreeEntity'];
 interface UserState {
   /** Token */
   accessToken: RemovableRef<string | null>;

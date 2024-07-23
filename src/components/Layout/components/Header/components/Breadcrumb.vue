@@ -12,7 +12,7 @@ function getTopLevelMenu(path: string, routes: MenuInfo[]): MenuInfo | undefined
   return routes.find((item) => {
     if (item.path === path) return true;
     if (Array.isArray(item.children)) {
-      return getTopLevelMenu(path, item.children);
+      return getTopLevelMenu(path, item.children as MenuInfo[]);
     }
     return false;
   });
@@ -26,7 +26,7 @@ function generateBreadcrumbs(routes: MenuInfo[]): DropdownOption[] {
       icon: () => h('i', { class: route.icon }),
     };
     if (route.children && route.children.length > 0) {
-      list.children = generateBreadcrumbs(route.children);
+      list.children = generateBreadcrumbs(route.children as MenuInfo[]);
     }
     return list;
   });
@@ -38,7 +38,9 @@ const breadcrumbs = computed(() => {
   if (topLevelMenu) {
     if (topLevelMenu.children) {
       topLevelMenu.children = topLevelMenu.children.filter((item) => !item.hidden);
-      const currentRoute = topLevelMenu.children.find((item) => item.path === route.path);
+      const currentRoute = topLevelMenu.children.find(
+        (item) => item.path === route.path,
+      ) as MenuInfo;
       if (currentRoute) {
         return generateBreadcrumbs([topLevelMenu, currentRoute]);
       }
