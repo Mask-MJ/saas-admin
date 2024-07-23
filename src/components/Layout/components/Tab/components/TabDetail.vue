@@ -110,7 +110,7 @@ watch(
       }"
       @click="tabStore.handleClickTab(item.fullPath)"
       @close="() => tabStore.removeTab(item.fullPath)"
-      @contextmenu="handleContextMenu($event, item.fullPath, item.meta.affix)"
+      @contextmenu="handleContextMenu($event, item.fullPath, item.meta.affix as boolean)"
     >
       <i :class="item.meta.icon" class="mr-4px inline-block align-text-bottom text-16px" />
       {{ item.meta.title }}

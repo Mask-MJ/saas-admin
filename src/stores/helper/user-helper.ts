@@ -14,7 +14,7 @@ export function transformersMenus(data: MenuInfo[]) {
           ? h(RouterLink, { to: item.path }, { default: () => label })
           : h('span', label),
       icon: () => h('i', { class: item.icon }),
-      children: item.children ? transformersMenus(item.children) : undefined,
+      children: item.children ? transformersMenus(item.children as MenuInfo[]) : undefined,
     };
     menuOption.push(menu);
   });

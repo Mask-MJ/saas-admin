@@ -57,7 +57,7 @@ function createPermissionGuard(router: Router) {
     // 判断是否有权限
     const flatBackendRouteList = flatMapDeep(
       userStore.backendRouteList,
-      (route) => [route, route.children] as RouteRecordRaw[],
+      (route) => [route, route.children] as unknown as RouteRecordRaw[],
     );
     if (routes.some((route) => route.path === to.path)) {
       if (flatBackendRouteList.some((route) => route.path === to.path)) {
