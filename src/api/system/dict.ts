@@ -1,8 +1,8 @@
 import type { components, operations } from '#/openapi';
 import { client } from '@/utils';
 
-export type DictDataInfo = operations['DictDataController_findAll']['parameters']['query'];
-export type DictTypeInfo = operations['DictTypeController_findAll']['parameters']['query'];
+export type DictDataInfo = components['schemas']['DictDataEntity'];
+export type DictTypeInfo = components['schemas']['DictTypeEntity'];
 export type SearchParams = operations['DictTypeController_findAll']['parameters']['query'];
 
 // 获取字典列表
