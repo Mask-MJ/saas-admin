@@ -13,10 +13,11 @@ const [registerTable, { reload }] = useTable({
   columns, // 展示的列
   useSearchForm: true, // 启用搜索表单
   formConfig: { labelWidth: 100, schemas: searchSchemas }, // 搜索表单配置
-  pagination: false,
-  bordered: true,
-  rowKey: (rowData) => rowData.id,
-  showIndexColumn: false,
+  pagination: false, // 是否分页
+  bordered: true, // 是否展示边框
+  rowKey: (rowData) => rowData.id, // 数组中每一项的唯一标识
+  showIndexColumn: false, // 是否显示序号列
+  //  action 操作列
   actionColumn: {
     width: 150,
     key: 'ACTION',
