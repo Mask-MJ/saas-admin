@@ -13,7 +13,7 @@ const props = defineProps({
   immediate: { type: Boolean, default: true },
   labelField: { type: String, default: '' },
   valueField: { type: String, default: '' },
-  resultField: { type: String, default: '' },
+  resultField: { type: String, default: 'data' },
   allOptions: { type: Boolean, default: false },
 });
 

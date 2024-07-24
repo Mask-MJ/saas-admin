@@ -15,7 +15,7 @@ const props = defineProps({
   immediate: { type: Boolean, default: false }, // 是否立即请求
   disableArray: { type: Array, default: () => [] }, // 要禁用的选项
   queryField: { type: String, default: '' }, // 搜索字段
-  resultField: { type: String, default: '' }, // 从返回结果中取出的字段
+  resultField: { type: String, default: 'data' }, // 从返回结果中取出的字段
 });
 
 const loading = ref(false);

@@ -7,7 +7,7 @@ const props = defineProps({
   api: { type: Function as PropType<(arg?: Recordable) => Promise<Recordable>> },
   params: { type: Object },
   immediate: { type: Boolean, default: true },
-  resultField: { type: String, default: '' },
+  resultField: { type: String, default: 'data' },
   afterFetch: { type: Function as PropType<Fn> },
   defaultCheckedKeys: { type: Array as PropType<Array<string | number>> },
 });
