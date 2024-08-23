@@ -1,6 +1,6 @@
 import type { MenuOption } from 'naive-ui';
+import type { MenuInfo } from '@/api/system/menu';
 import { RouterLink } from 'vue-router/auto';
-import type { MenuInfo } from '../user';
 
 export function transformersMenus(data: MenuInfo[]) {
   const menuOption: MenuOption[] = [];

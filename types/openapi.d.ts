@@ -107,6 +107,74 @@ export interface paths {
         patch: operations["UserController_changePassword"];
         trace?: never;
     };
+    "/api/system/user/uploadAvatar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 上传用户头像 */
+        post: operations["UserController_upload"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/system/user/insertRedisData": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 插入 Redis 数据 */
+        get: operations["UserController_insertRedisData"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/system/user/saveRedisDataToDB": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 保持 Redis 数据到数据库 */
+        get: operations["UserController_saveRedisDataToDB"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/system/user/setRedisData": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 设置 Redis 队列数据 */
+        post: operations["UserController_setRedisData"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/system/user/{id}": {
         parameters: {
             query?: never;
@@ -124,23 +192,6 @@ export interface paths {
         head?: never;
         /** 更新用户信息 */
         patch: operations["UserController_update"];
-        trace?: never;
-    };
-    "/api/system/user/uploadAvatar": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 上传用户头像 */
-        post: operations["UserController_upload"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
         trace?: never;
     };
     "/api/system/dept": {
@@ -445,6 +496,43 @@ export interface paths {
         options?: never;
         head?: never;
         patch: operations["RuleController_update"];
+        trace?: never;
+    };
+    "/api/system/dict-data-tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 获取pdf数据树列表 */
+        get: operations["DictDataTreeController_findAll"];
+        put?: never;
+        /** 创建pdf数据树 */
+        post: operations["DictDataTreeController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/system/dict-data-tree/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 获取pdf数据树详情 */
+        get: operations["DictDataTreeController_findOne"];
+        put?: never;
+        post?: never;
+        /** 删除pdf数据树 */
+        delete: operations["DictDataTreeController_remove"];
+        options?: never;
+        head?: never;
+        /** 更新pdf数据树 */
+        patch: operations["DictDataTreeController_update"];
         trace?: never;
     };
     "/api/monitor/operation-log": {
@@ -855,7 +943,15 @@ export interface components {
             password: string;
         };
         SignInDto: {
+            /**
+             * @description 账号
+             * @example admin
+             */
             account: string;
+            /**
+             * @description 密码
+             * @example 123456
+             */
             password: string;
         };
         SignInEntity: {
@@ -973,11 +1069,31 @@ export interface components {
             updatedAt: string;
             remark: string;
         };
+        PaginateDto: {
+            rows: string[];
+            /**
+             * @description 页码
+             * @default 1
+             * @example 1
+             */
+            page: number;
+            /**
+             * @description 每页数量
+             * @default 10
+             * @example 10
+             */
+            pageSize: number;
+            total: number;
+        };
         ChangePasswordDto: {
             id: number;
             /** @default  */
             oldPassword: string;
             password: string;
+        };
+        uploadDto: {
+            fileName: string;
+            file: Record<string, never>;
         };
         UpdateUserDto: {
             id: number;
@@ -1107,23 +1223,6 @@ export interface components {
             /** Format: date-time */
             updatedAt: string;
         };
-        DeptTreeEntity: {
-            id: number;
-            name: string;
-            sort: number;
-            leader: string;
-            phone: string;
-            email: string;
-            parentId: number | null;
-            remark: string | null;
-            createBy: string;
-            updateBy: string | null;
-            /** Format: date-time */
-            createdAt: string;
-            /** Format: date-time */
-            updatedAt: string;
-            children: components["schemas"]["DeptEntity"][];
-        };
         UpdateDeptDto: {
             id: number;
             /**
@@ -1199,6 +1298,11 @@ export interface components {
              * @example 0
              */
             parentId?: number;
+            /**
+             * @description treeId
+             * @example 1
+             */
+            treeId?: number;
         };
         DictDataEntity: {
             id: number;
@@ -1254,6 +1358,11 @@ export interface components {
              * @example 0
              */
             parentId?: number;
+            /**
+             * @description treeId
+             * @example 1
+             */
+            treeId?: number;
         };
         CreateDictTypeDto: {
             /**
@@ -1343,6 +1452,7 @@ export interface components {
             parentId?: number;
         };
         MenuEntity: {
+            children: components["schemas"]["MenuEntity"];
             id: number;
             name: string;
             path: string;
@@ -1358,24 +1468,6 @@ export interface components {
             createdAt: string;
             /** Format: date-time */
             updatedAt: string;
-        };
-        MenuTreeEntity: {
-            id: number;
-            name: string;
-            path: string;
-            icon: string;
-            hidden: boolean;
-            status: boolean;
-            sort: number;
-            parentId: number | null;
-            remark: string;
-            createBy: string;
-            updateBy: string;
-            /** Format: date-time */
-            createdAt: string;
-            /** Format: date-time */
-            updatedAt: string;
-            children: components["schemas"]["MenuEntity"][];
         };
         UpdateMenuDto: {
             id: number;
@@ -1659,6 +1751,68 @@ export interface components {
              * @example 备注
              */
             remark?: string;
+        };
+        CreateDictDataTreeDto: {
+            /**
+             * @description PDF树名称
+             * @example 仪表组态-基本
+             */
+            name: string;
+            /**
+             * @description PDF树 数据值
+             * @example Instrument Configuration-Basic
+             */
+            value: string;
+            /**
+             * @description 绑定的字典数据id
+             * @example 1
+             */
+            dictDataId?: number;
+            /**
+             * @description 备注
+             * @example 备注
+             */
+            remark?: string;
+            /**
+             * @description 父级菜单id
+             * @example 0
+             */
+            parentId?: number;
+        };
+        DictDataTreeEntity: {
+            id: number;
+            name: string;
+            value: string;
+            remark: string;
+            parentId: number | null;
+        };
+        UpdateDictDataTreeDto: {
+            id: number;
+            /**
+             * @description PDF树名称
+             * @example 仪表组态-基本
+             */
+            name?: string;
+            /**
+             * @description PDF树 数据值
+             * @example Instrument Configuration-Basic
+             */
+            value?: string;
+            /**
+             * @description 绑定的字典数据id
+             * @example 1
+             */
+            dictDataId?: number;
+            /**
+             * @description 备注
+             * @example 备注
+             */
+            remark?: string;
+            /**
+             * @description 父级菜单id
+             * @example 0
+             */
+            parentId?: number;
         };
         OperationLogEntity: {
             id: number;
@@ -1963,23 +2117,6 @@ export interface components {
              * @example 1
              */
             parentId?: number;
-        };
-        FactoryTreeEntity: {
-            id: number;
-            name: string;
-            status: boolean;
-            address: string;
-            longitude: string;
-            latitude: string;
-            parentId: number | null;
-            remark: string;
-            createBy: string;
-            updateBy: string;
-            /** Format: date-time */
-            createdAt: string;
-            /** Format: date-time */
-            updatedAt: string;
-            children: components["schemas"]["FactoryEntity"][];
         };
         UpdateFactoryDto: {
             id: number;
@@ -2661,6 +2798,7 @@ export interface operations {
     UserController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 账号
                  * @example admin
@@ -2696,6 +2834,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -2718,7 +2857,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["UserEntity"][];
+                    };
                 };
             };
         };
@@ -2788,6 +2929,84 @@ export interface operations {
             };
         };
     };
+    UserController_upload: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["uploadDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UserController_insertRedisData: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+        };
+    };
+    UserController_saveRedisDataToDB: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+        };
+    };
+    UserController_setRedisData: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+        };
+    };
     UserController_findOne: {
         parameters: {
             query?: never;
@@ -2853,23 +3072,6 @@ export interface operations {
             };
         };
     };
-    UserController_upload: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
     DeptController_findAll: {
         parameters: {
             query?: {
@@ -2900,7 +3102,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DeptTreeEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["DeptEntity"][];
+                    };
                 };
             };
         };
@@ -2996,6 +3200,7 @@ export interface operations {
     DictDataController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 字典数据名称
                  * @example 性别
@@ -3021,6 +3226,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -3042,9 +3248,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "application/json": components["schemas"]["DictDataEntity"][];
-                };
+                content?: never;
             };
         };
     };
@@ -3139,6 +3343,7 @@ export interface operations {
     DictTypeController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 字典名称
                  * @example 性别
@@ -3159,6 +3364,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -3181,7 +3387,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DictTypeEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["DictTypeEntity"][];
+                    };
                 };
             };
         };
@@ -3309,7 +3517,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MenuTreeEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["MenuEntity"][];
+                    };
                 };
             };
         };
@@ -3405,6 +3615,7 @@ export interface operations {
     RoleController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 权限名称
                  * @example 管理员
@@ -3425,6 +3636,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -3447,7 +3659,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RoleEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["RoleEntity"][];
+                    };
                 };
             };
         };
@@ -3539,6 +3753,7 @@ export interface operations {
     PostController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 岗位名称
                  * @example 技术部
@@ -3559,6 +3774,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -3581,7 +3797,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PostEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["PostEntity"][];
+                    };
                 };
             };
         };
@@ -3677,6 +3895,7 @@ export interface operations {
     UnitController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 单位名称
                  * @example 管理员
@@ -3697,6 +3916,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -3719,7 +3939,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UnitEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["UnitEntity"][];
+                    };
                 };
             };
         };
@@ -3811,6 +4033,7 @@ export interface operations {
     RuleController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 规则名称
                  * @example hard-规则-20240609
@@ -3826,6 +4049,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -3848,7 +4072,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RuleEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["RuleEntity"][];
+                    };
                 };
             };
         };
@@ -3883,7 +4109,11 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["uploadDto"];
+            };
+        };
         responses: {
             201: {
                 headers: {
@@ -3954,12 +4184,20 @@ export interface operations {
             };
         };
     };
-    OperationLogController_findAll: {
+    DictDataTreeController_findAll: {
         parameters: {
             query?: {
-                account?: string;
-                businessType?: number;
-                module?: string;
+                rows?: string[];
+                /**
+                 * @description PDF树名称
+                 * @example 仪表组态-基本
+                 */
+                name?: string;
+                /**
+                 * @description PDF树 数据值
+                 * @example Instrument Configuration-Basic
+                 */
+                value?: string;
                 /**
                  * @description 页码
                  * @example 1
@@ -3970,6 +4208,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -3992,7 +4231,144 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OperationLogEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["DictDataTreeEntity"][];
+                    };
+                };
+            };
+        };
+    };
+    DictDataTreeController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateDictDataTreeDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DictDataTreeEntity"];
+                };
+            };
+        };
+    };
+    DictDataTreeController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DictDataTreeEntity"];
+                };
+            };
+        };
+    };
+    DictDataTreeController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DictDataTreeController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateDictDataTreeDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DictDataTreeEntity"];
+                };
+            };
+        };
+    };
+    OperationLogController_findAll: {
+        parameters: {
+            query?: {
+                rows?: string[];
+                account?: string;
+                businessType?: number;
+                module?: string;
+                /**
+                 * @description 页码
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description 每页数量
+                 * @example 10
+                 */
+                pageSize?: number;
+                total?: number;
+                /**
+                 * @description 开始时间
+                 * @example 1714752000000
+                 */
+                beginTime?: string;
+                /**
+                 * @description 结束时间
+                 * @example 1716048000000
+                 */
+                endTime?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["OperationLogEntity"][];
+                    };
                 };
             };
         };
@@ -4021,6 +4397,7 @@ export interface operations {
     LoginLogController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 account?: string;
                 /**
                  * @description 页码
@@ -4032,6 +4409,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -4054,7 +4432,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["LoginLogEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["LoginLogEntity"][];
+                    };
                 };
             };
         };
@@ -4102,6 +4482,7 @@ export interface operations {
     ContractController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 合同名称
                  * @example 合同1
@@ -4113,6 +4494,11 @@ export interface operations {
                  */
                 customer?: string;
                 /**
+                 * @description 工厂id
+                 * @example 1
+                 */
+                factoryId?: number;
+                /**
                  * @description 页码
                  * @example 1
                  */
@@ -4122,6 +4508,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -4144,7 +4531,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ContractEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["ContractEntity"][];
+                    };
                 };
             };
         };
@@ -4240,6 +4629,7 @@ export interface operations {
     DeviceController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 装置名称
                  * @example 装置1
@@ -4260,6 +4650,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -4282,7 +4673,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DeviceEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["DeviceEntity"][];
+                    };
                 };
             };
         };
@@ -4405,7 +4798,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FactoryTreeEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["FactoryEntity"][];
+                    };
                 };
             };
         };
@@ -4497,6 +4892,7 @@ export interface operations {
     ValveController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 阀门位号
                  * @example FV-3001B
@@ -4527,6 +4923,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -4549,7 +4946,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValveEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["ValveEntity"][];
+                    };
                 };
             };
         };
@@ -4601,6 +5000,7 @@ export interface operations {
     ValveController_findAllHistoryDataList: {
         parameters: {
             query?: {
+                rows?: string[];
                 valveId?: number;
                 /**
                  * @description 页码
@@ -4612,6 +5012,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -4634,7 +5035,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValveHistoryListEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["ValveHistoryListEntity"][];
+                    };
                 };
             };
         };
@@ -4655,7 +5058,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValveHistoryEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["ValveHistoryEntity"][];
+                    };
                 };
             };
         };
@@ -4697,7 +5102,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValveRunInfoEntity"];
+                    "application/json": components["schemas"]["ValveEntity"];
                 };
             };
         };
@@ -4749,6 +5154,7 @@ export interface operations {
     AnalysisTaskController_findAll: {
         parameters: {
             query?: {
+                rows?: string[];
                 /**
                  * @description 任务名称
                  * @example 分析任务1
@@ -4774,6 +5180,7 @@ export interface operations {
                  * @example 10
                  */
                 pageSize?: number;
+                total?: number;
                 /**
                  * @description 开始时间
                  * @example 1714752000000
@@ -4796,7 +5203,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AnalysisTaskEntity"][];
+                    "application/json": components["schemas"]["PaginateDto"] & {
+                        rows?: components["schemas"]["AnalysisTaskEntity"][];
+                    };
                 };
             };
         };
@@ -4852,7 +5261,11 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["uploadDto"];
+            };
+        };
         responses: {
             201: {
                 headers: {

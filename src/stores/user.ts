@@ -1,15 +1,16 @@
 import type { MenuOption } from 'naive-ui';
 import type { RemovableRef } from '@vueuse/core';
 import type { components } from '#/openapi';
+import type { UserInfo } from '@/api/system/user';
+import type { MenuInfo } from '@/api/system/menu';
+
 import { REFRESH_TOKEN_KEY, ACCESS_TOKEN_KEY, USER_INFO_KEY, PageEnum } from '@/settings';
 import { defineStore } from 'pinia';
 import { client } from '@/utils';
 import { router } from '@/router';
 import { flatMapDeep } from 'lodash-es';
 import { transformersMenus } from './helper/user-helper';
-import type { UserInfo } from '@/api/system/user';
 
-export type MenuInfo = components['schemas']['MenuTreeEntity'];
 interface UserState {
   /** Token */
   accessToken: RemovableRef<string | null>;
@@ -82,11 +83,10 @@ export const useUserStore = defineStore('user-store', {
       if (!data) return;
       const routes = router.getRoutes();
       // 把路由同步到 router 中
-      flatMapDeep(data, (route) => [route, route.children]).forEach((route) => {
+      flatMapDeep(data, (route: MenuInfo) => [route, route.children]).forEach((route) => {
         routes.forEach((item) => {
           if (route?.path === item.path) {
             item.meta = {
-              ...item.meta,
               title: route.name,
               icon: route.icon,
               hidden: route.hidden,
