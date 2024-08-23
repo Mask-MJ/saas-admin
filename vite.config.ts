@@ -51,7 +51,7 @@ export default defineConfig(({ mode }) => {
         runtimeOnly: true,
         include: [path.resolve(process.cwd(), 'src/locales/lang/**')],
       }),
-      // mkcert(),
+      mkcert(),
       Unocss(),
       Layouts(),
       AutoImport({
