@@ -1,6 +1,6 @@
 {
   "name": "@saas-core/shared",
-  "version": "5.5.4",
+  "version": "1.0.0",
   "homepage": "https://github.com/mask-mj/saas-admin",
   "bugs": "https://github.com/mask-mj/saas-admin/issues",
   "repository": {
@@ -19,6 +19,11 @@
   ],
   "sideEffects": false,
   "exports": {
+    "./constants": {
+      "types": "./src/constants/index.ts",
+      "development": "./src/constants/index.ts",
+      "default": "./dist/constants/index.mjs"
+    },
     "./utils": {
       "types": "./src/utils/index.ts",
       "development": "./src/utils/index.ts",
@@ -28,20 +33,14 @@
       "types": "./src/color/index.ts",
       "development": "./src/color/index.ts",
       "default": "./dist/color/index.mjs"
-    },
-    "./cache": {
-      "types": "./src/cache/index.ts",
-      "development": "./src/cache/index.ts",
-      "default": "./dist/cache/index.mjs"
-    },
-    "./global-state": {
-      "types": "./src/global-state.ts",
-      "development": "./src/global-state.ts",
-      "default": "./dist/global-state.mjs"
     }
   },
   "publishConfig": {
     "exports": {
+      "./constants": {
+        "types": "./dist/constants/index.d.ts",
+        "default": "./dist/constants/index.mjs"
+      },
       "./utils": {
         "types": "./dist/utils/index.d.ts",
         "default": "./dist/utils/index.mjs"
@@ -49,14 +48,6 @@
       "./color": {
         "types": "./dist/color/index.d.ts",
         "default": "./dist/color/index.mjs"
-      },
-      "./cache": {
-        "types": "./dist/cache/index.d.ts",
-        "default": "./dist/cache/index.mjs"
-      },
-      "./global-state": {
-        "types": "./dist/global-state.d.ts",
-        "default": "./dist/global-state.mjs"
       }
     }
   },
@@ -65,11 +56,11 @@
     "clsx": "catalog:",
     "dayjs": "catalog:",
     "defu": "catalog:",
-    "nprogress": "catalog:",
+    "lodash-es": "catalog:",
     "tailwind-merge": "catalog:",
     "theme-colors": "catalog:"
   },
   "devDependencies": {
-    "@types/nprogress": "catalog:"
+    "@types/lodash-es": "catalog:"
   }
 }
