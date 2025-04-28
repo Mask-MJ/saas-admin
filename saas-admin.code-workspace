@@ -37,6 +37,10 @@
       "path": "packages/constants",
     },
     {
+      "name": "@saas-core/shared",
+      "path": "packages/core/base/shared",
+    },
+    {
       "name": "@saas-core/typings",
       "path": "packages/core/base/typings",
     },

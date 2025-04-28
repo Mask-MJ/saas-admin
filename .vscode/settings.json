@@ -9,6 +9,10 @@
   "workbench.editor.limit.enabled": true,
   "workbench.editor.limit.perEditorGroup": true,
   "workbench.editor.limit.value": 5,
+  "editor.fontFamily": "Input Mono, monospace",
+  "editor.lineNumbers": "interval",
+  "editor.renderWhitespace": "boundary",
+  "workbench.tree.expandMode": "singleClick",
 
   // editor
   "editor.tabSize": 2,
@@ -66,7 +70,15 @@
   },
   // extensions
   "extensions.ignoreRecommendations": true,
-
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.untrackedChanges": "separate",
+  "scm.diffDecorationsGutterWidth": 2,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.fontWeight": "300",
   // terminal
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.persistentSessionReviveProcess": "never",
@@ -206,6 +218,8 @@
   "i18n-ally.keystyle": "nested",
   "i18n-ally.sortKeys": true,
   "i18n-ally.namespace": true,
+  "i18n-ally.autoDetection": false,
+  "i18n-ally.ignoredLocales": [],
 
   // 控制相关文件嵌套展示
   "explorer.fileNesting.enabled": true,
@@ -219,11 +233,8 @@
     "eslint.config.mjs": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,stylelint.config.*,.lintstagedrc.mjs,cspell.json",
     "tailwind.config.mjs": "postcss.*"
   },
-  "commentTranslate.hover.enabled": false,
-  "commentTranslate.multiLineMerge": true,
   "vue.server.hybridMode": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "oxc.enable": false,
   "cSpell.words": [
     "archiver",
     "axios",
@@ -234,5 +245,13 @@
     "nolebase",
     "rollup",
     "vitest"
-  ]
+  ],
+
+  "cSpell.allowCompoundWords": true,
+  "cSpell.language": "en,en-US",
+  "css.lint.hexColorLength": "ignore",
+
+  "iconify.annotations": true,
+  "iconify.inplace": true,
+  "svg.preview.mode": "svg"
 }
