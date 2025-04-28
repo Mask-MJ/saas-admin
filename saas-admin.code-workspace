@@ -33,6 +33,14 @@
       "path": "internal/vite-config",
     },
     {
+      "name": "@saas/constants",
+      "path": "packages/constants",
+    },
+    {
+      "name": "@saas-core/typings",
+      "path": "packages/core/base/typings",
+    },
+    {
       "name": "@saas/turbo-run",
       "path": "scripts/turbo-run",
     },
