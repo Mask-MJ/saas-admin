@@ -53,6 +53,10 @@
       "path": "packages/core/composables",
     },
     {
+      "name": "@saas-core/preferences",
+      "path": "packages/core/preferences",
+    },
+    {
       "name": "@saas/turbo-run",
       "path": "scripts/turbo-run",
     },

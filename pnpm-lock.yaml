@@ -303,6 +303,9 @@ catalogs:
     turbo:
       specifier: ^2.5.0
       version: 2.5.2
+    type-fest:
+      specifier: ^4.40.1
+      version: 4.40.1
     typescript:
       specifier: ^5.8.3
       version: 5.8.3
@@ -784,6 +787,34 @@ importers:
       '@types/sortablejs':
         specifier: 'catalog:'
         version: 1.15.8
+
+  packages/core/preferences:
+    dependencies:
+      '@saas-core/shared':
+        specifier: workspace:*
+        version: link:../base/shared
+      '@saas-core/typings':
+        specifier: workspace:*
+        version: link:../base/typings
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 12.8.2(typescript@5.8.3)
+      defu:
+        specifier: 'catalog:'
+        version: 6.1.4
+      lodash-es:
+        specifier: 'catalog:'
+        version: 4.17.21
+      type-fest:
+        specifier: 'catalog:'
+        version: 4.40.1
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.13(typescript@5.8.3)
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 'catalog:'
+        version: 4.17.12
 
   scripts/turbo-run:
     dependencies:

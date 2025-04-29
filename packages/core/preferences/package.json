@@ -1,0 +1,43 @@
+{
+  "name": "@saas-core/preferences",
+  "version": "5.5.5",
+  "homepage": "https://github.com/mask-mj/saas-admin",
+  "bugs": "https://github.com/mask-mj/saas-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mask-mj/saas-admin.git",
+    "directory": "packages/@core/preferences"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "#build": "pnpm unbuild"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./src/index.ts",
+      "#default": "./dist/index.mjs"
+    }
+  },
+  "dependencies": {
+    "@saas-core/shared": "workspace:*",
+    "@saas-core/typings": "workspace:*",
+    "@vueuse/core": "catalog:",
+    "defu": "catalog:",
+    "lodash-es": "catalog:",
+    "type-fest": "catalog:",
+    "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "catalog:"
+  }
+}

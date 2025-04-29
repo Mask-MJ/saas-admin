@@ -29,6 +29,11 @@
       "development": "./src/utils/index.ts",
       "default": "./dist/utils/index.mjs"
     },
+    "./cache": {
+      "types": "./src/cache/index.ts",
+      "development": "./src/cache/index.ts",
+      "default": "./dist/cache/index.mjs"
+    },
     "./color": {
       "types": "./src/color/index.ts",
       "development": "./src/color/index.ts",
@@ -48,6 +53,10 @@
       "./color": {
         "types": "./dist/color/index.d.ts",
         "default": "./dist/color/index.mjs"
+      },
+      "./cache": {
+        "types": "./dist/cache/index.d.ts",
+        "default": "./dist/cache/index.mjs"
       }
     }
   },
