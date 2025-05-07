@@ -57,6 +57,10 @@
       "path": "packages/core/preferences",
     },
     {
+      "name": "@saas-core/shadcn-ui",
+      "path": "packages/core/ui-kit/shadcn-ui",
+    },
+    {
       "name": "@saas/turbo-run",
       "path": "scripts/turbo-run",
     },
